@@ -1,75 +1,53 @@
 <!doctype html>
-<!--
-  To-Do Life Dashboard
-  Built with TDD — all features were driven by tests in tests/app.test.html
--->
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A minimal personal dashboard: clock, to-do list, focus timer, and quick links." />
-    <title>To-Do List Life | Dashboard</title>
+    <title>To-Do List Life Dashboard</title>
     <link rel="stylesheet" href="css/style.css" />
+    <script defer src="js/app.js"></script>
   </head>
   <body>
-    <div id="app">
-      <!-- ── Header: Clock + Greeting ──────────────── -->
-      <header id="header" class="card">
-        <div class="header-left">
-          <div id="clock" aria-live="polite" aria-label="Current time">00:00</div>
-          <div id="date-display"></div>
-          <div id="greeting"></div>
-        </div>
-        <div class="header-right">
-          <input id="name-input" type="text" placeholder="Your name…" maxlength="40" aria-label="Enter your name" />
-          <button id="theme-toggle" aria-label="Toggle light/dark theme">🌙 Dark</button>
-        </div>
-      </header>
-
-      <!-- ── To-Do List ───────────────────────────── -->
-      <section id="todo-section" class="card" aria-label="To-Do List">
-        <div class="card-title">To-Do List</div>
-
-        <div class="task-input-row">
-          <input id="task-input" type="text" placeholder="Add a task… (Enter to add)" maxlength="200" aria-label="New task text" />
-          <button id="task-add" class="btn btn-primary">Add</button>
-        </div>
-
-        <div class="task-toolbar">
-          <button id="sort-btn" class="btn btn-secondary">↕ Sort</button>
-        </div>
-
-        <ul id="task-list" aria-label="Task list"></ul>
-      </section>
-
-      <!-- ── Focus Timer ──────────────────────────── -->
-      <section id="timer-section" class="card" aria-label="Focus Timer">
-        <div class="card-title">Focus Timer</div>
-
-        <div id="timer-display" role="timer" aria-live="polite">25:00</div>
-
-        <div class="timer-controls">
-          <button id="timer-start" class="btn btn-primary" aria-label="Start timer">▶ Start</button>
-          <button id="timer-stop" class="btn btn-secondary" disabled aria-label="Stop timer">⏸ Stop</button>
-          <button id="timer-reset" class="btn btn-secondary" aria-label="Reset timer">↺ Reset</button>
-        </div>
-      </section>
-
-      <!-- ── Quick Links ──────────────────────────── -->
-      <section id="links-section" class="card" aria-label="Quick Links">
-        <div class="card-title">Quick Links</div>
-
-        <div class="link-add-row">
-          <input id="link-label" type="text" placeholder="Label" maxlength="30" aria-label="Link label" />
-          <input id="link-url" type="url" placeholder="https://…" maxlength="300" aria-label="Link URL" />
-          <button id="link-add" class="btn btn-primary">Add</button>
-        </div>
-
-        <div id="links-container" aria-label="Saved links"></div>
-      </section>
-    </div>
-    <!-- /#app -->
-
-    <script src="js/app.js"></script>
+    <header class="site-header">
+      <h1 class="site-title">Life Dashboard</h1>
+      <button id="theme-btn" aria-label="Toggle theme">🌙</button>
+    </header>
+    <section id="greeting" class="widget">
+      <h2 id="greeting-text"></h2>
+      <p id="datetime"></p>
+      <input id="name-input" type="text" style="display: none" />
+    </section>
+    <section id="timer" class="widget">
+      <div class="timer-ring-container">
+        <svg viewBox="0 0 120 120" width="120" height="120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#e0e0e0" stroke-width="8" />
+          <circle id="timer-ring" cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="8" stroke-dasharray="326.7" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 60 60)" />
+        </svg>
+        <span id="timer-display">25:00</span>
+      </div>
+      <div class="timer-controls">
+        <button id="timer-start">▶ Start</button>
+        <button id="timer-stop">⏸ Stop</button>
+        <button id="timer-reset">↺ Reset</button>
+      </div>
+    </section>
+    <section id="todos" class="widget">
+      <div class="widget-header">
+        <h2>To-Do List</h2>
+        <span id="todo-count"></span>
+      </div>
+      <div class="todo-add-row">
+        <input id="todo-input" type="text" placeholder="Add a task…" />
+        <button id="todo-add">Add</button>
+      </div>
+      <select id="todo-sort">
+        <option value="default">Default</option>
+        <option value="alpha">A–Z</option>
+        <option value="done-last">Done last</option>
+      </select>
+      <ul id="todo-list"></ul>
+    </section>
+    <section id="links"></section>
+    <section id="theme-toggle-container"></section>
   </body>
 </html>
