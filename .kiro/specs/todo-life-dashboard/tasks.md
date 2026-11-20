@@ -84,30 +84,30 @@ Tasks 5, 6, 7+8, and 9 are independent of each other and can be developed in any
   - [x] 8.2 Implement `renderTasks()`: clear `#todo-list`; for each task build a `<li>` with: a checkbox `<input type="checkbox">`, a `<span class="task-text">` (textContent = task.text), a delete `<button>`. Set `data-id` on the `<li>`. Add class `done` to `<li>` if `task.done`. Update `#todo-count` with pending count.
   - [x] 8.3 Use event delegation on `#todo-list`: on checkbox change call `toggleTask(id)`, on delete button click call `deleteTask(id)`, on `dblclick` of `.task-text` make it `contenteditable`, on `blur`/Enter call `editTask(id, newText)` and remove `contenteditable`.
   - [x] 8.4 Attach listener on `#todo-add` click and `#todo-input` keydown Enter to call `addTask(input.value)`. Attach listener on `#todo-sort` change to call `sortTasks(select.value)`.
-  - [ ] 8.5 In `css/style.css`, style task list items: flex row, checkbox left, text centre, delete button right. Apply strikethrough + muted opacity for `.done`. Add hover states and transition.
+  - [x] 8.5 In `css/style.css`, style task list items: flex row, checkbox left, text centre, delete button right. Apply strikethrough + muted opacity for `.done`. Add hover states and transition.
 
-- [ ] 9. Quick links widget
-  - [~] 9.1 In `index.html`, inside `#links`, add: an `<input id="link-label">` placeholder "Label", an `<input id="link-url">` placeholder "https://…", an `<button id="link-add">Add</button>`, and a `<div id="link-list">`.
-  - [~] 9.2 In `js/app.js`, declare module-level `let links = []`.
-  - [~] 9.3 Implement `loadLinks()` and `persistLinks()` mirroring the task equivalents (key `'links'`).
-  - [~] 9.4 Implement `validateURL(raw)`: try `new URL(raw.includes('://') ? raw : 'https://' + raw)`; on throw return `{ valid: false, normalised: null }`; check protocol is `'http:'` or `'https:'`; return `{ valid: true, normalised: parsed.href }`.
-  - [~] 9.5 Implement `addLink(label, url)`: trim and validate label (non-empty, ≤ 50 chars) and url (`validateURL`); show inline errors on failure; create a `Link` object, push to `links`, call `persistLinks()`, call `renderLinks()`.
-  - [~] 9.6 Implement `deleteLink(id)`: filter `links`, call `persistLinks()`, call `renderLinks()`.
-  - [~] 9.7 Implement `renderLinks()`: clear `#link-list`; for each link render a `<button class="link-btn">` (textContent = label, `data-url` = url, `data-id` = id) and a delete `<button class="link-del">`.
-  - [~] 9.8 Use event delegation on `#link-list`: on `.link-btn` click call `window.open(btn.dataset.url, '_blank')`; on `.link-del` click call `deleteLink(id)`. Attach listener on `#link-add` click to call `addLink(labelInput.value, urlInput.value)` and clear inputs.
-  - [~] 9.9 In `css/style.css`, style link buttons as pill-shaped with accent background, and arrange them in a flex-wrap row.
+- [x] 9. Quick links widget
+  - [x] 9.1 In `index.html`, inside `#links`, add: an `<input id="link-label">` placeholder "Label", an `<input id="link-url">` placeholder "https://…", an `<button id="link-add">Add</button>`, and a `<div id="link-list">`.
+  - [x] 9.2 In `js/app.js`, declare module-level `let links = []`.
+  - [x] 9.3 Implement `loadLinks()` and `persistLinks()` mirroring the task equivalents (key `'links'`).
+  - [x] 9.4 Implement `validateURL(raw)`: try `new URL(raw.includes('://') ? raw : 'https://' + raw)`; on throw return `{ valid: false, normalised: null }`; check protocol is `'http:'` or `'https:'`; return `{ valid: true, normalised: parsed.href }`.
+  - [x] 9.5 Implement `addLink(label, url)`: trim and validate label (non-empty, ≤ 50 chars) and url (`validateURL`); show inline errors on failure; create a `Link` object, push to `links`, call `persistLinks()`, call `renderLinks()`.
+  - [x] 9.6 Implement `deleteLink(id)`: filter `links`, call `persistLinks()`, call `renderLinks()`.
+  - [x] 9.7 Implement `renderLinks()`: clear `#link-list`; for each link render a `<button class="link-btn">` (textContent = label, `data-url` = url, `data-id` = id) and a delete `<button class="link-del">`.
+  - [x] 9.8 Use event delegation on `#link-list`: on `.link-btn` click call `window.open(btn.dataset.url, '_blank')`; on `.link-del` click call `deleteLink(id)`. Attach listener on `#link-add` click to call `addLink(labelInput.value, urlInput.value)` and clear inputs.
+  - [x] 9.9 In `css/style.css`, style link buttons as pill-shaped with accent background, and arrange them in a flex-wrap row.
 
-- [ ] 10. Initialisation and integration
-  - [~] 10.1 In `js/app.js`, implement `initApp()`: call `applyTheme(getTheme())`, `tasks = loadTasks()`, `renderTasks()`, `links = loadLinks()`, `renderLinks()`, `startGreetingClock()`, `updateTimerDisplay()`.
-  - [~] 10.2 Register `initApp` on `document.addEventListener('DOMContentLoaded', initApp)`.
-  - [~] 10.3 Verify that `applyTheme` is called before any rendering call so the correct CSS tokens are active from the first paint.
+- [x] 10. Initialisation and integration
+  - [x] 10.1 In `js/app.js`, implement `initApp()`: call `applyTheme(getTheme())`, `tasks = loadTasks()`, `renderTasks()`, `links = loadLinks()`, `renderLinks()`, `startGreetingClock()`, `updateTimerDisplay()`.
+  - [x] 10.2 Register `initApp` on `document.addEventListener('DOMContentLoaded', initApp)`.
+  - [x] 10.3 Verify that `applyTheme` is called before any rendering call so the correct CSS tokens are active from the first paint.
 
-- [ ] 11. Cross-cutting polish
-  - [~] 11.1 Add a `showToast(message)` utility: inject a `<div class="toast">` into the DOM, animate it in (slide up), auto-remove after 3 s.
-  - [~] 11.2 Add an `showInlineError(inputEl, message)` utility: set a sibling `<span class="error-msg">` textContent, add class `invalid` to the input; clear on next valid input event.
-  - [~] 11.3 In `css/style.css`, style `.toast` (bottom-centre fixed, slide-up animation) and `.invalid` / `.error-msg` (red border, red small text).
-  - [~] 11.4 Ensure all user-generated text is inserted via `textContent` (never `innerHTML`). Audit the codebase once all features are wired up.
-  - [~] 11.5 Manual smoke test: load in Chrome and Firefox; verify all five widgets render; add/toggle/delete a task; add/open/delete a link; run timer to completion; switch theme; reload and confirm all data persists.
+- [x] 11. Cross-cutting polish
+  - [x] 11.1 Add a `showToast(message)` utility: inject a `<div class="toast">` into the DOM, animate it in (slide up), auto-remove after 3 s.
+  - [x] 11.2 Add an `showInlineError(inputEl, message)` utility: set a sibling `<span class="error-msg">` textContent, add class `invalid` to the input; clear on next valid input event.
+  - [x] 11.3 In `css/style.css`, style `.toast` (bottom-centre fixed, slide-up animation) and `.invalid` / `.error-msg` (red border, red small text).
+  - [x] 11.4 Ensure all user-generated text is inserted via `textContent` (never `innerHTML`). Audit the codebase once all features are wired up.
+  - [x] 11.5 Manual smoke test: load in Chrome and Firefox; verify all five widgets render; add/toggle/delete a task; add/open/delete a link; run timer to completion; switch theme; reload and confirm all data persists.
 
 ## Notes
 

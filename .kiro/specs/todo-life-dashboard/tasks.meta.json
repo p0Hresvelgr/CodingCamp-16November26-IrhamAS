@@ -662,6 +662,11 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795102431047
+      },
+      {
+        "executionId": "6885dd7d-e171-4c68-a995-17291f5f37e0",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795132956174
       }
     ],
     "9.1 In `index.html`, inside `#links`, add: an `<input id=\"link-label\">` placeholder \"Label\", an `<input id=\"link-url\">` placeholder \"https://…\", an `<button id=\"link-add\">Add</button>`, and a `<div id=\"link-list\">`.": [
@@ -669,6 +674,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099125739
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133021017
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133064104
       }
     ],
     "9.2 In `js/app.js`, declare module-level `let links = []`.": [
@@ -676,6 +691,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099127121
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133070840
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133403307
       }
     ],
     "9.3 Implement `loadLinks()` and `persistLinks()` mirroring the task equivalents (key `'links'`).": [
@@ -683,6 +708,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099128122
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133409304
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133469364
       }
     ],
     "9.4 Implement `validateURL(raw)`: try `new URL(raw.includes('://') ? raw : 'https://' + raw)`; on throw return `{ valid: false, normalised: null }`; check protocol is `'http:'` or `'https:'`; return `{ valid: true, normalised: parsed.href }`.": [
@@ -690,6 +725,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099129359
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133476171
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133524815
       }
     ],
     "9.5 Implement `addLink(label, url)`: trim and validate label (non-empty, ≤ 50 chars) and url (`validateURL`); show inline errors on failure; create a `Link` object, push to `links`, call `persistLinks()`, call `renderLinks()`.": [
@@ -697,6 +742,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099130340
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133532151
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133894475
       }
     ],
     "9.6 Implement `deleteLink(id)`: filter `links`, call `persistLinks()`, call `renderLinks()`.": [
@@ -704,6 +759,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099131271
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133901736
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133944183
       }
     ],
     "9.7 Implement `renderLinks()`: clear `#link-list`; for each link render a `<button class=\"link-btn\">` (textContent = label, `data-url` = url, `data-id` = id) and a delete `<button class=\"link-del\">`.": [
@@ -711,6 +776,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099132569
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133950995
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133958200
       }
     ],
     "9.8 Use event delegation on `#link-list`: on `.link-btn` click call `window.open(btn.dataset.url, '_blank')`; on `.link-del` click call `deleteLink(id)`. Attach listener on `#link-add` click to call `addLink(labelInput.value, urlInput.value)` and clear inputs.": [
@@ -718,6 +793,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099133519
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795133965698
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134063426
       }
     ],
     "9.9 In `css/style.css`, style link buttons as pill-shaped with accent background, and arrange them in a flex-wrap row.": [
@@ -725,6 +810,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099134608
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134070073
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134107610
       }
     ],
     "10.1 In `js/app.js`, implement `initApp()`: call `applyTheme(getTheme())`, `tasks = loadTasks()`, `renderTasks()`, `links = loadLinks()`, `renderLinks()`, `startGreetingClock()`, `updateTimerDisplay()`.": [
@@ -732,6 +827,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099140892
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134115372
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134175269
       }
     ],
     "10.2 Register `initApp` on `document.addEventListener('DOMContentLoaded', initApp)`.": [
@@ -739,6 +844,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099142041
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134181334
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134188106
       }
     ],
     "10.3 Verify that `applyTheme` is called before any rendering call so the correct CSS tokens are active from the first paint.": [
@@ -746,6 +861,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099145106
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134500203
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134513684
       }
     ],
     "11.1 Add a `showToast(message)` utility: inject a `<div class=\"toast\">` into the DOM, animate it in (slide up), auto-remove after 3 s.": [
@@ -753,6 +878,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099146602
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134523987
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134586867
       }
     ],
     "11.2 Add an `showInlineError(inputEl, message)` utility: set a sibling `<span class=\"error-msg\">` textContent, add class `invalid` to the input; clear on next valid input event.": [
@@ -760,6 +895,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099147650
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134595286
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134603383
       }
     ],
     "11.3 In `css/style.css`, style `.toast` (bottom-centre fixed, slide-up animation) and `.invalid` / `.error-msg` (red border, red small text).": [
@@ -767,6 +912,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099148958
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134611983
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795136555770
       }
     ],
     "11.4 Ensure all user-generated text is inserted via `textContent` (never `innerHTML`). Audit the codebase once all features are wired up.": [
@@ -774,6 +929,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099150834
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795136564707
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795136579154
       }
     ],
     "11.5 Manual smoke test: load in Chrome and Firefox; verify all five widgets render; add/toggle/delete a task; add/open/delete a link; run timer to completion; switch theme; reload and confirm all data persists.": [
@@ -781,6 +946,16 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795099152507
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795136889565
+      },
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795136904318
       }
     ],
     "1. Project scaffold": [
@@ -837,6 +1012,27 @@
         "executionId": "d22fdaf0-71d6-421a-9195-e2a605d60a5a",
         "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
         "timestamp": 1795102432770
+      }
+    ],
+    "9. Quick links widget": [
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134109056
+      }
+    ],
+    "10. Initialisation and integration": [
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795134516319
+      }
+    ],
+    "11. Cross-cutting polish": [
+      {
+        "executionId": "46a2d68d-ae75-45ac-9cef-9b29f81598b8",
+        "chatSessionId": "sess_c8fe7ecf-787e-4cae-9efc-742fc46fb4bc",
+        "timestamp": 1795136906900
       }
     ]
   }

@@ -712,3 +712,301 @@ function initTodoInputEvents() {
     });
   }
 }
+
+// =============================================================================
+// Links Module
+// =============================================================================
+
+/** In-memory array of link objects, kept in sync with localStorage. */
+let links = [];
+
+/**
+ * Loads persisted links from localStorage.
+ * - If 'links' key is absent, returns [].
+ * - Parses the JSON value; if the result is an array, returns it.
+ * - On JSON.parse errors or non-array results, logs a console warning and returns [].
+ * @returns {Array}
+ */
+function loadLinks() {
+  const raw = localStorage.getItem("links");
+  if (raw === null) {
+    return [];
+  }
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      return parsed;
+    }
+    console.warn("loadLinks: stored value is not an array, resetting to [].");
+    return [];
+  } catch (e) {
+    console.warn("loadLinks: failed to parse stored links, resetting to [].", e);
+    return [];
+  }
+}
+
+/**
+ * Persists the in-memory links array to localStorage.
+ * - Serialises `links` with JSON.stringify and writes it under the 'links' key.
+ * - Catches storage errors (QuotaExceededError / code 22) and shows a toast
+ *   notifying the user that the save failed.
+ */
+function persistLinks() {
+  try {
+    localStorage.setItem("links", JSON.stringify(links));
+  } catch (e) {
+    if (e.name === "QuotaExceededError" || e.code === 22) {
+      showToast("Could not save — storage unavailable.");
+    }
+  }
+}
+
+/**
+ * Validates and normalises a raw URL string.
+ * - If raw does not contain '://', prepends 'https://' before parsing.
+ * - On parse failure (invalid URL syntax) returns { valid: false, normalised: null }.
+ * - If the parsed protocol is neither 'http:' nor 'https:', returns
+ *   { valid: false, normalised: null }.
+ * - Otherwise returns { valid: true, normalised: parsed.href }.
+ * @param {string} raw - The raw URL string entered by the user
+ * @returns {{ valid: boolean, normalised: string|null }}
+ */
+function validateURL(raw) {
+  try {
+    const parsed = new URL(raw.includes("://") ? raw : "https://" + raw);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return { valid: false, normalised: null };
+    }
+    return { valid: true, normalised: parsed.href };
+  } catch (_) {
+    return { valid: false, normalised: null };
+  }
+}
+
+/**
+ * Adds a new link to the links list.
+ * - Trims the label input.
+ * - Validates label: non-empty and ≤ 50 characters.
+ *   On failure calls showInlineError on #link-label and returns early.
+ * - Validates url via validateURL(url).
+ *   If not valid, calls showInlineError on #link-url and returns early.
+ * - Creates a Link object with a unique id (crypto.randomUUID()), the
+ *   trimmed label, and the normalised URL from validateURL.
+ * - Pushes the link to the module-level `links` array.
+ * - Calls persistLinks() to sync to localStorage.
+ * - Calls renderLinks() to refresh the UI.
+ * - Clears both #link-label and #link-url inputs.
+ * @param {string} label - Raw label string from the user
+ * @param {string} url   - Raw URL string from the user
+ */
+function addLink(label, url) {
+  const trimmedLabel = label.trim();
+
+  if (trimmedLabel.length === 0 || trimmedLabel.length > 50) {
+    showInlineError(document.getElementById("link-label"), "Label must be 1–50 characters.");
+    return;
+  }
+
+  const result = validateURL(url);
+  if (!result.valid) {
+    showInlineError(document.getElementById("link-url"), "Please enter a valid http/https URL.");
+    return;
+  }
+
+  const link = {
+    id: crypto.randomUUID(),
+    label: trimmedLabel,
+    url: result.normalised,
+  };
+
+  links.push(link);
+  persistLinks();
+  renderLinks();
+
+  const labelInput = document.getElementById("link-label");
+  if (labelInput) labelInput.value = "";
+
+  const urlInput = document.getElementById("link-url");
+  if (urlInput) urlInput.value = "";
+}
+
+/**
+ * Removes the link with the given id from the links list.
+ * - Filters the module-level `links` array to exclude the link whose id matches.
+ * - Calls persistLinks() to sync the updated array to localStorage.
+ * - Calls renderLinks() to refresh the UI.
+ * @param {string} id - The unique id of the link to delete
+ */
+function deleteLink(id) {
+  links = links.filter(function (link) {
+    return link.id !== id;
+  });
+  persistLinks();
+  renderLinks();
+}
+
+/**
+ * Renders the current links array into the DOM.
+ *
+ * - Clears #link-list via linkList.innerHTML = ''.
+ * - For each link creates a <div class="link-item"> containing:
+ *     • <button class="link-btn"> with textContent = link.label (XSS-safe),
+ *       dataset.url = link.url, and dataset.id = link.id.
+ *     • <button class="link-del"> with textContent = '×' and dataset.id = link.id.
+ * - Appends each .link-item div to #link-list.
+ */
+function renderLinks() {
+  const linkList = document.getElementById("link-list");
+  if (!linkList) return;
+
+  linkList.innerHTML = "";
+
+  links.forEach(function (link) {
+    const item = document.createElement("div");
+    item.className = "link-item";
+
+    const btn = document.createElement("button");
+    btn.className = "link-btn";
+    btn.textContent = link.label;
+    btn.dataset.url = link.url;
+    btn.dataset.id = link.id;
+
+    const delBtn = document.createElement("button");
+    delBtn.className = "link-del";
+    delBtn.textContent = "×";
+    delBtn.dataset.id = link.id;
+
+    item.appendChild(btn);
+    item.appendChild(delBtn);
+    linkList.appendChild(item);
+  });
+}
+
+/**
+ * Wires up all event listeners for the Links module.
+ *
+ * - Single delegated 'click' listener on `#link-list`:
+ *     • If the clicked element has class `link-btn`, opens its `data-url` in a
+ *       new tab with `noopener,noreferrer` for security.
+ *     • If the clicked element has class `link-del`, calls `deleteLink` with
+ *       the element's `data-id`.
+ * - Click listener on `#link-add`:
+ *     reads `#link-label` and `#link-url`, then calls `addLink(label, url)`.
+ *     `addLink` already clears the inputs on success.
+ *
+ * Called from initApp() during page initialisation.
+ */
+function initLinkEvents() {
+  const linkList = document.getElementById("link-list");
+  if (linkList) {
+    linkList.addEventListener("click", function (e) {
+      if (e.target.classList.contains("link-btn")) {
+        window.open(e.target.dataset.url, "_blank", "noopener,noreferrer");
+      } else if (e.target.classList.contains("link-del")) {
+        deleteLink(e.target.dataset.id);
+      }
+    });
+  }
+
+  const addBtn = document.getElementById("link-add");
+  if (addBtn) {
+    addBtn.addEventListener("click", function () {
+      const label = document.getElementById("link-label").value;
+      const url = document.getElementById("link-url").value;
+      addLink(label, url);
+    });
+  }
+}
+
+// =============================================================================
+// Utility Functions
+// =============================================================================
+
+/**
+ * Displays a brief toast notification at the bottom of the screen.
+ * Creates a <div class="toast">, appends it to <body>, and removes it after 3 s.
+ * @param {string} message - The text to display (set via textContent, never innerHTML)
+ */
+function showToast(message) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+/**
+ * Shows an inline validation error beside a form input.
+ * - Adds class 'invalid' to inputEl.
+ * - Finds or creates a sibling <span class="error-msg"> and sets its textContent.
+ * - Attaches a one-time 'input' listener that clears the error on the next keystroke.
+ * @param {HTMLElement|null} inputEl - The input element to mark invalid
+ * @param {string}           message - The error text to display
+ */
+function showInlineError(inputEl, message) {
+  if (inputEl === null) return;
+
+  inputEl.classList.add("invalid");
+
+  // Find or create the sibling error span
+  let span = inputEl.nextElementSibling;
+  if (!span || !span.classList.contains("error-msg")) {
+    span = document.createElement("span");
+    span.className = "error-msg";
+    inputEl.insertAdjacentElement("afterend", span);
+  }
+
+  span.textContent = message;
+
+  // Clear error on next valid input
+  inputEl.addEventListener(
+    "input",
+    function () {
+      inputEl.classList.remove("invalid");
+      span.textContent = "";
+    },
+    { once: true },
+  );
+}
+
+// =============================================================================
+// Init Module
+// =============================================================================
+
+/**
+ * Bootstraps the entire application.
+ * applyTheme() is called first so the correct CSS tokens are active before
+ * any content is rendered to the page.
+ */
+function initApp() {
+  // 1. Apply theme before any render so the first paint uses the correct tokens
+  applyTheme(getTheme());
+
+  // 2. Load and render tasks
+  tasks = loadTasks();
+  renderTasks();
+
+  // 3. Load and render links
+  links = loadLinks();
+  renderLinks();
+
+  // 4. Start the greeting clock (renders greeting + datetime immediately)
+  startGreetingClock();
+
+  // 5. Sync the timer display to the initial timerState
+  updateTimerDisplay();
+
+  // 6. Wire up interactive modules
+  initGreetingEditing();
+  initTimerControls();
+  initTodoListEvents();
+  initTodoInputEvents();
+  initLinkEvents();
+
+  // 11. Wire theme toggle button
+  const themeBtn = document.getElementById("theme-btn");
+  if (themeBtn) themeBtn.addEventListener("click", toggleTheme);
+}
+
+// Register initApp to run once the DOM is fully parsed (Task 10.2)
+document.addEventListener("DOMContentLoaded", initApp);
